@@ -1,5 +1,14 @@
 const CACHE_NAME = "version-1";
-const urlsToCache = ["index.html", "offline.html"];
+const urlsToCache = [
+  "/",
+  "/index.html",
+  "/static/js/bundle.js",
+  "/static/js/0.chunk.js",
+  "/static/js/vendors~main.chunk.js",
+  "/static/js/main.chunk.js",
+  "https://kit.fontawesome.com/fc31dedf63.js",
+  "/logo192.png",
+];
 const self = this;
 
 // Install SW
@@ -22,8 +31,11 @@ self.addEventListener("fetch", (event) => {
   event.respondWith(
     caches
       .match(event.request)
-      .then(() => {
-        return fetch(event.request).catch(() => caches.match("offline.html"));
+      .then((resp) => {
+        // return fetch(event.request).catch(() => caches.match("offline.html"));
+        if (resp) {
+          return resp;
+        }
       })
       .catch((error) => {
         console.log("Error: ", error);
