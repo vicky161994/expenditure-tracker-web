@@ -1,12 +1,13 @@
 const CACHE_NAME = "version-1";
 const urlsToCache = [
-  "/",
+  // "/",
   "/index.html",
-  "/static/js/bundle.js",
-  "/static/js/0.chunk.js",
-  "/static/js/vendors~main.chunk.js",
-  "/static/js/main.chunk.js",
-  "/logo192.png",
+  // "/static/js/bundle.js",
+  // "/static/js/0.chunk.js",
+  // "/static/js/vendors~main.chunk.js",
+  // "/static/js/main.chunk.js",
+  // "/logo192.png",
+  "offline.html",
 ];
 const self = this;
 
@@ -16,7 +17,7 @@ self.addEventListener("install", (event) => {
     caches
       .open(CACHE_NAME)
       .then((cache) => {
-        console.log("Opened cache");
+        console.log("Opened cache==>>>", cache);
         return cache.addAll(urlsToCache);
       })
       .catch((error) => {
