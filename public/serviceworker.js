@@ -5,7 +5,6 @@ const urlsToCache = [
   "/static/js/2.ea264269.chunk.js",
   "/static/js/main.b3243bcb.chunk.js",
   "/logo192.png",
-  "https://kit.fontawesome.com/fc31dedf63.js",
   // "offline.html"
 ];
 const self = this;
