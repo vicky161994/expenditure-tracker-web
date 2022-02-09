@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
@@ -21,14 +21,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Login(props) {
-  const [redirect, setRedirect] = useState("");
-  setRedirect(
-    useState(
-      props.location.search
-        ? props.location.search.split("?")[1].split("=")[1]
-        : "/"
-    )
-  );
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
@@ -38,6 +30,7 @@ function Login(props) {
   const classes = useStyles();
   const userLogin = useSelector((state) => state.userLogin);
   const { user, error } = userLogin;
+  console.log(user);
   const dispatch = useDispatch();
   const handleEmail = (e) => {
     if (e.target.value === "") {
@@ -80,11 +73,6 @@ function Login(props) {
     }
     dispatch(login(email, password));
   };
-  useEffect(() => {
-    if (user) {
-      props.history.push(redirect);
-    }
-  }, [props.history, redirect, user]);
 
   return (
     <Row>

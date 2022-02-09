@@ -7,7 +7,7 @@ const urlsToCache = [
   // "/static/js/vendors~main.chunk.js",
   // "/static/js/main.chunk.js",
   // "/logo192.png",
-  "offline.html",
+  // "offline.html"
 ];
 const self = this;
 
@@ -32,10 +32,10 @@ self.addEventListener("fetch", (event) => {
     caches
       .match(event.request)
       .then((resp) => {
-        // return fetch(event.request).catch(() => caches.match("offline.html"));
-        if (resp) {
-          return resp;
-        }
+        return fetch(event.request).catch(() => caches.match("offline.html"));
+        // if (resp) {
+        //   return resp;
+        // }
       })
       .catch((error) => {
         console.log("Error: ", error);
