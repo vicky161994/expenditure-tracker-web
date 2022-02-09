@@ -1,12 +1,10 @@
 const CACHE_NAME = "version-1";
 const urlsToCache = [
-  // "/",
+  "/",
   "/index.html",
-  // "/static/js/bundle.js",
-  // "/static/js/0.chunk.js",
-  // "/static/js/vendors~main.chunk.js",
-  // "/static/js/main.chunk.js",
-  // "/logo192.png",
+  "/static/js/2.ea264269.chunk.js",
+  "/static/js/main.b3243bcb.chunk.js",
+  "/logo192.png",
   // "offline.html"
 ];
 const self = this;
@@ -32,10 +30,10 @@ self.addEventListener("fetch", (event) => {
     caches
       .match(event.request)
       .then((resp) => {
-        return fetch(event.request).catch(() => caches.match("offline.html"));
-        // if (resp) {
-        //   return resp;
-        // }
+        // return fetch(event.request).catch(() => caches.match("offline.html"));
+        if (resp) {
+          return resp;
+        }
       })
       .catch((error) => {
         console.log("Error: ", error);
