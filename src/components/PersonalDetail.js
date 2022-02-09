@@ -4,8 +4,6 @@ import EditIcon from "@material-ui/icons/Edit";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Person from "@material-ui/icons/Person";
 import PhoneIcon from "@material-ui/icons/Phone";
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import Tooltip from "@material-ui/core/Tooltip";
 import { useDispatch } from "react-redux";
 import { changeNameNumber } from "../actions/userActions";
 import NumberVerification from "./dialogs/NumberVerification";
@@ -80,14 +78,6 @@ function PersonalDetail(props) {
     await dispatch(changeNameNumber(null, number));
     setIsNumberSpin(false);
     setIsNumberEdit(false);
-  };
-
-  const openNumberVerificationDailog = async () => {
-    setOpenNumberDialog(true);
-  };
-
-  const openEmailVerificationDailog = async () => {
-    setOpenEmailDialog(true);
   };
 
   const CloseDialog = async (e) => {

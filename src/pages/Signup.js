@@ -11,12 +11,10 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import PhoneIcon from "@material-ui/icons/Phone";
 import Person from "@material-ui/icons/Person";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import Facebook from "@material-ui/icons/Facebook";
 import { Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../actions/userActions";
-import { loginWithFacebook, loginWithGoogle } from "../actions/userActions";
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -40,8 +38,6 @@ function Signup(props) {
   const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
   const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] =
     useState("");
-  const [isFacebookProcessing, setIsFacebookProcessing] = useState(false);
-  const [isGoogleProcessing, setIsGoogleProcessing] = useState(false);
   const classes = useStyles();
   const userRegister = useSelector((state) => state.userRegister);
   const { user, loading, error } = userRegister;
@@ -165,20 +161,6 @@ function Signup(props) {
       }
     }
   }, [error, loading, user]);
-
-  const responseFacebook = (response) => {
-    setIsFacebookProcessing(true);
-    dispatch(loginWithFacebook(response.accessToken, response.userID));
-  };
-
-  const responseSuccessGoogle = (response) => {
-    setIsGoogleProcessing(true);
-    dispatch(loginWithGoogle(response.tokenId));
-  };
-
-  const responseErrorGoogle = (response) => {
-    alert("Something went wrong, Please try again!");
-  };
 
   return (
     <Row>

@@ -1,16 +1,13 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Card from "@material-ui/core/Card";
 import Typography from "@material-ui/core/Typography";
 import { Col, Container, Row } from "react-bootstrap";
-import { Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { chargePayment } from "../actions/orderActions";
 
 function Payment(props) {
   const userLogin = useSelector((state) => state.userLogin);
   const orderDetails = useSelector((state) => state.orderDetails);
-  const dispatch = useDispatch();
   const { user } = userLogin;
   const cartList = useSelector((state) => state.cartList);
   const { products } = cartList;
@@ -40,20 +37,6 @@ function Payment(props) {
   taxPrice = toPrice(0.15 * totalAmt);
   const totalPrice = totalAmt + shippingPrice + taxPrice;
 
-  const makePayment = async (token) => {
-    await dispatch(
-      chargePayment(
-        token,
-        items,
-        totalAmt,
-        shippingPrice,
-        taxPrice,
-        totalPrice,
-        address
-      )
-    );
-    props.history.push("/order-history");
-  };
   return (
     <Container>
       <Row>

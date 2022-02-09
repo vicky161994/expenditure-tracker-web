@@ -18,7 +18,7 @@ function Homepage(props) {
   const { user } = userLogin;
   useEffect(() => {
     dispatch(productlist(page, filterKeyword));
-  }, [dispatch, page]);
+  }, [dispatch, filterKeyword, page]);
 
   const paginateData = (pageno) => {
     setPage(pageno);

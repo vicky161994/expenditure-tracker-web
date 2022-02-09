@@ -12,11 +12,7 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  login,
-  loginWithFacebook,
-  loginWithGoogle,
-} from "../actions/userActions";
+import { login } from "../actions/userActions";
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -25,10 +21,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Login(props) {
-  const [redirect, setRedirect] = useState(
-    props.location.search
-      ? props.location.search.split("?")[1].split("=")[1]
-      : "/"
+  const [redirect, setRedirect] = useState("");
+  setRedirect(
+    useState(
+      props.location.search
+        ? props.location.search.split("?")[1].split("=")[1]
+        : "/"
+    )
   );
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -36,8 +35,6 @@ function Login(props) {
   const [passwordError, setPasswordError] = useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = useState("");
   const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
-  const [isFacebookProcessing, setIsFacebookProcessing] = useState(false);
-  const [isGoogleProcessing, setIsGoogleProcessing] = useState(false);
   const classes = useStyles();
   const userLogin = useSelector((state) => state.userLogin);
   const { user, error } = userLogin;
@@ -87,21 +84,7 @@ function Login(props) {
     if (user) {
       props.history.push(redirect);
     }
-  }, [props.history, user]);
-
-  const responseFacebook = (response) => {
-    setIsFacebookProcessing(true);
-    dispatch(loginWithFacebook(response.accessToken, response.userID));
-  };
-
-  const responseSuccessGoogle = (response) => {
-    setIsGoogleProcessing(true);
-    dispatch(loginWithGoogle(response.tokenId));
-  };
-
-  const responseErrorGoogle = (response) => {
-    alert("Something went wrong, Please try again!");
-  };
+  }, [props.history, redirect, user]);
 
   return (
     <Row>
