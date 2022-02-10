@@ -7,7 +7,6 @@ import Button from "@material-ui/core/Button";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
-import AccountCircle from "@material-ui/icons/AccountCircle";
 import PhoneIcon from "@material-ui/icons/Phone";
 import Person from "@material-ui/icons/Person";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
@@ -22,18 +21,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 function Signup(props) {
-  const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [nameError, setNameError] = useState(false);
-  const [emailError, setEmailError] = useState(false);
   const [numberError, setNumberError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
   const [nameErrorMessage, setNameErrorMessage] = useState("");
-  const [emailErrorMessage, setEmailErrorMessage] = useState("");
   const [numberErrorMessage, setNumberErrorMessage] = useState("");
   const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
   const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] =
@@ -42,13 +38,6 @@ function Signup(props) {
   const userRegister = useSelector((state) => state.userRegister);
   const { user, loading, error } = userRegister;
   const dispatch = useDispatch();
-  const userLogin = useSelector((state) => state.userLogin);
-  const userLogged = userLogin.user;
-  useEffect(() => {
-    if (userLogged) {
-      props.history.push("/");
-    }
-  }, [props.history, userLogged]);
 
   const handleName = (e) => {
     if (e.target.value === "") {
@@ -60,26 +49,18 @@ function Signup(props) {
       setNameErrorMessage("");
     }
   };
-  const handleEmail = (e) => {
-    if (e.target.value === "") {
-      setEmailError(true);
-      setEmailErrorMessage("Email is required");
-    } else {
-      setEmail(e.target.value);
-      setEmailError(false);
-      setEmailErrorMessage("");
-    }
-  };
+
   const handleMobileNumber = (e) => {
     if (e.target.value === "") {
       setNumberError(true);
-      setNumberErrorMessage("mobile number is required");
+      setNumberErrorMessage("mobile number or email is required");
     } else {
       setNumber(e.target.value);
       setNumberError(false);
       setNumberErrorMessage("");
     }
   };
+
   const handlePassword = (e) => {
     if (e.target.value === "") {
       setPasswordError(true);
@@ -97,6 +78,7 @@ function Signup(props) {
       setConfirmPasswordErrorMessage("");
     }
   };
+
   const handleConfirmPassword = (e) => {
     if (e.target.value === "") {
       setConfirmPasswordError(true);
@@ -113,20 +95,11 @@ function Signup(props) {
   };
 
   const handleRegister = async () => {
-    let emailRegex =
-      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     if (name === "") {
       setNameError(true);
       setNameErrorMessage("Name is required");
     }
-    if (email === "") {
-      setEmailError(true);
-      setEmailErrorMessage("Email is required");
-    }
-    if (email !== "" && !emailRegex.test(email)) {
-      setEmailError(true);
-      setEmailErrorMessage("Email is not valid");
-    }
+
     if (number === "") {
       setNumberError(true);
       setNumberErrorMessage("Number is required");
@@ -139,21 +112,15 @@ function Signup(props) {
       setConfirmPasswordError(true);
       setConfirmPasswordErrorMessage("Confirm password is required");
     }
-    if (
-      nameError ||
-      emailError ||
-      passwordError ||
-      confirmPasswordError ||
-      numberError
-    ) {
+    if (nameError || passwordError || confirmPasswordError || numberError) {
       return false;
     }
-    await dispatch(register(name, email, password, number));
+    await dispatch(register(name, password, number));
   };
+
   useEffect(() => {
     if (user) {
       if (user.status === "201") {
-        setEmail("");
         setNumber("");
         setPassword("");
         setName("");
@@ -174,12 +141,22 @@ function Signup(props) {
             <h1 id="logintext">Register into Application</h1>
             {user && (
               <Typography
-                className={`${user.status === "201" ? "success" : "danger"}`}
+                className="success"
                 variant="body2"
                 color="textSecondary"
                 component="p"
               >
                 {user.message}
+              </Typography>
+            )}
+            {error && (
+              <Typography
+                className="danger"
+                variant="body2"
+                color="textSecondary"
+                component="p"
+              >
+                {error.message}
               </Typography>
             )}
             <div>
@@ -205,33 +182,12 @@ function Signup(props) {
 
             <div>
               <TextField
-                error={emailError}
-                helperText={emailErrorMessage}
-                style={{ width: "100%" }}
-                className={classes.margin}
-                id="input-with-icon-textfield"
-                label="Email"
-                value={email}
-                onChange={handleEmail}
-                autoComplete="off"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <AccountCircle />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </div>
-
-            <div>
-              <TextField
                 error={numberError}
                 helperText={numberErrorMessage}
                 style={{ width: "100%" }}
                 className={classes.margin}
                 id="input-with-icon-textfield"
-                label="Mobile Number"
+                label="Mobile Number/Email"
                 value={number}
                 onChange={handleMobileNumber}
                 autoComplete="off"
@@ -303,7 +259,7 @@ function Signup(props) {
               <Link to="forgot-password" className="forgotPassword">
                 Forgot Password?
               </Link>
-              <Link to="login" className="signup">
+              <Link to="/" className="signup">
                 Login
               </Link>
             </div>

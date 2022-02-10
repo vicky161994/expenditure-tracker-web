@@ -4,10 +4,7 @@ import {
   productDetailReducer,
   productListReducer,
 } from "./reducers/productReducers";
-import {
-  cartListReducer,
-  noAuthAddToCartReducer,
-} from "./reducers/cartReducers";
+import { cartListReducer } from "./reducers/cartReducers";
 import { userLoginReducer, userRegisterReducer } from "./reducers/userReducers";
 import {
   addOrderItemReducer,
@@ -15,13 +12,8 @@ import {
 } from "./reducers/orderReducers";
 const initialState = {
   userLogin: {
-    user: localStorage.getItem("thevickyk.com-userInfo")
-      ? JSON.parse(localStorage.getItem("thevickyk.com-userInfo"))
-      : null,
-  },
-  noAuthCart: {
-    cartList: localStorage.getItem("thevickyk.com-cartItems")
-      ? JSON.parse(localStorage.getItem("thevickyk.com-cartItems"))
+    user: localStorage.getItem("expenditure-tracker-userInfo")
+      ? JSON.parse(localStorage.getItem("expenditure-tracker-userInfo"))
       : null,
   },
 };
@@ -31,7 +23,6 @@ const reducer = combineReducers({
   userRegister: userRegisterReducer,
   userLogin: userLoginReducer,
   cartList: cartListReducer,
-  noAuthCart: noAuthAddToCartReducer,
   orderDetails: addOrderItemReducer,
   orderList: getOrderListReducer,
 });

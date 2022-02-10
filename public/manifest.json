@@ -1,6 +1,6 @@
 {
-  "short_name": "thevickyk.com",
-  "name": "thevickyk.com",
+  "short_name": "Expenditure Tracker",
+  "name": "Expenditure Tracker",
   "scope": "/",
   "start_url": ".",
   "display": "standalone",

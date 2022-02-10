@@ -25,7 +25,7 @@ function Header() {
               className="d-inline-block align-top"
               alt="React Bootstrap logo"
             />{" "}
-            thevickyk.com
+            Expenditure Tracker
           </Navbar.Brand>
         </LinkContainer>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />

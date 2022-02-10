@@ -54,15 +54,9 @@ function Login(props) {
   };
 
   const handleLogin = () => {
-    let emailRegex =
-      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     if (email === "") {
       setEmailError(true);
-      setEmailErrorMessage("Email is required");
-    }
-    if (email !== "" && !emailRegex.test(email)) {
-      setEmailError(true);
-      setEmailErrorMessage("Email is not valid");
+      setEmailErrorMessage("Mobile number or email is required");
     }
     if (password === "") {
       setPasswordError(true);
@@ -101,7 +95,7 @@ function Login(props) {
                 style={{ width: "100%" }}
                 className={classes.margin}
                 id="input-with-icon-textfield"
-                label="Email"
+                label="Mobile Number/Email"
                 onChange={handleEmail}
                 autoComplete="off"
                 InputProps={{

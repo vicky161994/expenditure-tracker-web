@@ -27,17 +27,16 @@ import {
   CHANGE_PROFILE_FAIL,
 } from "../constants/userConstants";
 
-export const register = (name, email, password, number) => async (dispatch) => {
+export const register = (fullName, password, email) => async (dispatch) => {
   dispatch({
     type: USER_REGISTER_REQUEST,
-    payload: { name, email, password, number },
+    payload: { fullName, password, email },
   });
   try {
-    const { data } = await Axios.post("/api/users/register", {
-      name,
-      email,
-      number,
+    const { data } = await Axios.post("v1/users/register", {
+      fullName,
       password,
+      email,
     });
     dispatch({
       type: USER_REGISTER_SUCCESS,
@@ -47,6 +46,7 @@ export const register = (name, email, password, number) => async (dispatch) => {
     dispatch({
       type: USER_REGISTER_FAIL,
       error: error.response.data.message,
+      payload: { message: error.response.data.message, status: error.status },
     });
   }
 };
@@ -54,46 +54,17 @@ export const register = (name, email, password, number) => async (dispatch) => {
 export const login = (email, password) => async (dispatch) => {
   dispatch({ type: USER_LOGIN_REQUEST, payload: { email, password } });
   try {
-    const { data } = await Axios.post("/api/users/login", {
+    const { data } = await Axios.post("v1/users/login", {
       email,
       password,
     });
-    const cartItems = localStorage.getItem("thevickyk.com-cartItems")
-      ? JSON.parse(localStorage.getItem("thevickyk.com-cartItems"))
-      : null;
-    if (cartItems) {
-      if (!data.cartItems.length) {
-        data.cartItems = cartItems;
-      } else {
-        data.cartItems.forEach((element, index1) => {
-          cartItems.forEach((product, index2) => {
-            if (element.productId === product.productId) {
-              data.cartItems[index1].qty = product.qty + element.qty;
-              cartItems.splice(index2, 1);
-            } else {
-              data.cartItems.push(product);
-              cartItems.splice(index2, 1);
-            }
-          });
-        });
-      }
-    }
-    await Axios.post(
-      "/api/users/add-to-cart",
-      {
-        cartItems: data.cartItems,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${data.token}`,
-        },
-      }
+    localStorage.setItem(
+      "expenditure-tracker-userInfo",
+      JSON.stringify(data.data)
     );
-    localStorage.setItem("thevickyk.com-userInfo", JSON.stringify(data));
-    localStorage.removeItem("thevickyk.com-cartItems");
     dispatch({
       type: USER_LOGIN_SUCCESS,
-      payload: data,
+      payload: data.data,
     });
   } catch (error) {
     dispatch({ type: USER_LOGIN_FAIL, payload: error.response.data.message });
@@ -101,9 +72,7 @@ export const login = (email, password) => async (dispatch) => {
 };
 
 export const logout = () => (dispatch) => {
-  localStorage.removeItem("thevickyk.com-userInfo");
-  // localStorage.removeItem("cartItems");
-  // localStorage.removeItem("shippingAddress");
+  localStorage.removeItem("expenditure-tracker-userInfo");
   dispatch({ type: USER_LOGOUT });
 };
 
