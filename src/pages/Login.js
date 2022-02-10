@@ -144,7 +144,6 @@ function Login(props) {
                 Login
               </Button>
             </div>
-            <h6 style={{ marginTop: "20px" }}>OR</h6>
             <div style={{ marginTop: "10px" }}>
               <Link to="forgot-password" className="forgotPassword">
                 Forgot Password?
