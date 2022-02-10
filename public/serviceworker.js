@@ -8,7 +8,7 @@ const urlsToCache = [
   "/fc31dedf63.js",
   "/fontawesome.min.css",
   "/static/css/2.0a9ec390.chunk.css",
-  "static/css/main.2a5353f7.chunk.css",
+  "/static/css/main.2a5353f7.chunk.css",
   // "offline.html"
 ];
 const self = this;
