@@ -26,14 +26,14 @@ import {
   CHANGE_PROFILE_SUCCESS,
   CHANGE_PROFILE_FAIL,
 } from "../constants/userConstants";
-
+var api_ur = "https://expenditure-tracker-api.herokuapp.com/api/";
 export const register = (fullName, password, email) => async (dispatch) => {
   dispatch({
     type: USER_REGISTER_REQUEST,
     payload: { fullName, password, email },
   });
   try {
-    const { data } = await Axios.post("v1/users/register", {
+    const { data } = await Axios.post(`${api_ur}v1/users/register`, {
       fullName,
       password,
       email,
@@ -54,7 +54,7 @@ export const register = (fullName, password, email) => async (dispatch) => {
 export const login = (email, password) => async (dispatch) => {
   dispatch({ type: USER_LOGIN_REQUEST, payload: { email, password } });
   try {
-    const { data } = await Axios.post("v1/users/login", {
+    const { data } = await Axios.post(`${api_ur}v1/users/login`, {
       email,
       password,
     });
