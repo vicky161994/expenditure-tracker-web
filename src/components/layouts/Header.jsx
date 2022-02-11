@@ -23,7 +23,7 @@ function Header() {
               width="30"
               height="30"
               className="d-inline-block align-top"
-              alt="React Bootstrap logo"
+              alt="Expenditure tracker logo"
             />{" "}
             Expenditure Tracker
           </Navbar.Brand>
@@ -35,7 +35,7 @@ function Header() {
         >
           <Nav className="mr-auto">
           {user && user.token && (
-              <LinkContainer to="">
+              <LinkContainer to="group">
                 <Nav.Link>
                   Group
                 </Nav.Link>
