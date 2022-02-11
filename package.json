@@ -1,6 +1,6 @@
 {
   "name": "expenditure-tracker-web",
-  "proxy": "http://127.0.0.1:6002/api/",
+  "proxy": "https://expenditure-tracker-api.herokuapp.com/api/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
