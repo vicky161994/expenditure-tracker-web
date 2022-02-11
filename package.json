@@ -1,6 +1,6 @@
 {
   "name": "expenditure-tracker-web",
-  "proxy": "https://expenditure-tracker-api.herokuapp.com/api/",
+  "proxy": "https://expenditure-tracker-api.herokuapp.com/api/v1",
   "version": "0.1.0", 
   "private": true,
   "dependencies": {
