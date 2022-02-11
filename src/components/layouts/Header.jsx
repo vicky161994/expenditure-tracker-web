@@ -34,19 +34,27 @@ function Header() {
           className="justify-content-end"
         >
           <Nav className="mr-auto">
+          {user && user.token && (
+              <LinkContainer to="">
+                <Nav.Link>
+                  Group
+                </Nav.Link>
+              </LinkContainer>
+            )}
+            {user && user.token && (
+              <LinkContainer to="item-list">
+                <Nav.Link>
+                  Item
+                </Nav.Link>
+              </LinkContainer>
+            )}
             {user && user.token && (
               <Nav.Link onClick={handleLogoutAction}>
                 Logout
                 <ExitToAppIcon />
               </Nav.Link>
             )}
-            {/* {user && user.token && (
-              <LinkContainer to="account">
-                <Nav.Link>
-                  Account <PersonIcon />
-                </Nav.Link>
-              </LinkContainer>
-            )} */}
+            
           </Nav>
         </Navbar.Collapse>
       </Container>
