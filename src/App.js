@@ -26,7 +26,7 @@ function App() {
           ? JSON.parse(localStorage.getItem("pendingTask"))
           : []
       );
-    }, 30000);
+    }, 10000);
   });
   window.addEventListener("offline", () => {
     console.log("offline");
