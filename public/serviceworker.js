@@ -14,8 +14,7 @@ const urlsToCache = [
   "/static/css/main.2a5353f7.chunk.css",
   "/static/js/main.7ed304f1.chunk.js",
   "/static/js/2.ab9d8fe5.chunk.js",
-  "/static/js/main.34d1a683.chunk.js",
-  "/static/js/main.44664ab0.chunk.js",
+  "/static/js/main.7aaaca96.chunk.js",
   /* production end */
 
   /* local start */
