@@ -34,6 +34,7 @@ function Signup(props) {
   const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
   const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] =
     useState("");
+  const [networkStatus, setNetworkStatus] = useState(navigator.onLine);
   const classes = useStyles();
   const userRegister = useSelector((state) => state.userRegister);
   const { user, loading, error } = userRegister;
@@ -115,7 +116,21 @@ function Signup(props) {
     if (nameError || passwordError || confirmPasswordError || numberError) {
       return false;
     }
-    await dispatch(register(name, password, number));
+    if (networkStatus) {
+      await dispatch(register(name, password, number));
+    } else {
+      let PendingTask = localStorage.getItem("pendingTask")
+        ? JSON.parse(localStorage.getItem("pendingTask"))
+        : [];
+      PendingTask.push({
+        api: "userRegister",
+        data: { name, password, number },
+      });
+      localStorage.setItem("pendingTask", JSON.stringify(PendingTask));
+      alert(
+        "you are not connected with any network. Data will be sync once you are connected to network"
+      );
+    }
   };
 
   useEffect(() => {

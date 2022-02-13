@@ -27,6 +27,7 @@ function Login(props) {
   const [passwordError, setPasswordError] = useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = useState("");
   const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
+  const [networkStatus, setNetworkStatus] = useState(navigator.onLine);
   const classes = useStyles();
   const userLogin = useSelector((state) => state.userLogin);
   const { user, error } = userLogin;
@@ -54,6 +55,7 @@ function Login(props) {
   };
 
   const handleLogin = () => {
+    setNetworkStatus(navigator.onLine);
     if (email === "") {
       setEmailError(true);
       setEmailErrorMessage("Mobile number or email is required");
@@ -65,7 +67,11 @@ function Login(props) {
     if (emailError || passwordError) {
       return false;
     }
-    dispatch(login(email, password));
+    if (networkStatus) {
+      dispatch(login(email, password));
+    } else {
+      alert("You are not connected with any network.");
+    }
   };
 
   return (

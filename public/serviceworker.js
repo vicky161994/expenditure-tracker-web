@@ -2,14 +2,25 @@ const CACHE_NAME = "version-1";
 const urlsToCache = [
   "/",
   "/index.html",
+  "/fontawesome.min.css",
+  "/fc31dedf63.js",
+  "/logo192.png",
+  "/favicon.ico",
+
+  /* production start */
   "/static/js/2.ea264269.chunk.js",
   "/static/js/main.b3243bcb.chunk.js",
-  "/logo192.png",
-  "/fc31dedf63.js",
-  "/fontawesome.min.css",
   "/static/css/2.0a9ec390.chunk.css",
   "/static/css/main.2a5353f7.chunk.css",
   "/static/js/main.7ed304f1.chunk.js",
+  /* production end */
+
+  /* local start */
+  // "/static/js/bundle.js",
+  // "/static/js/vendors~main.chunk.js",
+  // "/static/js/main.chunk.js",
+  /* local end */
+
   // "offline.html"
 ];
 const self = this;
@@ -31,6 +42,7 @@ self.addEventListener("install", (event) => {
 
 //Listen for requests
 self.addEventListener("fetch", (event) => {
+  // if (!navigator.onLine) {
   event.respondWith(
     caches
       .match(event.request)
@@ -39,11 +51,14 @@ self.addEventListener("fetch", (event) => {
         if (resp) {
           return resp;
         }
+        let request_url = event.request.clone();
+        fetch(request_url);
       })
       .catch((error) => {
         console.log("Error: ", error);
       })
   );
+  // }
 });
 
 //Activate the SW

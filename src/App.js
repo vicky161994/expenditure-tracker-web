@@ -12,13 +12,29 @@ import Checkout from "./pages/Checkout";
 import Payment from "./pages/Payment";
 import OrderDetail from "./pages/OrderDetail";
 import { useSelector } from "react-redux";
+import Helper from "./Helper";
+import { useState } from "react";
+
 function App() {
   const userLogin = useSelector((state) => state.userLogin);
+  const [pendingTask, setPendingTask] = useState([]);
   const { user } = userLogin;
-  console.log(user);
+  window.addEventListener("online", () => {
+    setTimeout(function () {
+      setPendingTask(
+        localStorage.getItem("pendingTask")
+          ? JSON.parse(localStorage.getItem("pendingTask"))
+          : []
+      );
+    }, 10000);
+  });
+  window.addEventListener("offline", () => {
+    console.log("offline");
+  });
   return (
     <BrowserRouter>
       <Header />
+      {navigator.onLine && <Helper />}
       <main>
         <Route path="/" component={user ? Homepage : Login} exact />
         <Route path="/login" component={Login} exact />
