@@ -31,6 +31,7 @@ function App() {
   window.addEventListener("offline", () => {
     console.log("offline");
   });
+  console.log(pendingTask);
   return (
     <BrowserRouter>
       <Header />

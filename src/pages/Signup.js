@@ -34,7 +34,7 @@ function Signup(props) {
   const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
   const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] =
     useState("");
-  const [networkStatus, setNetworkStatus] = useState(navigator.onLine);
+  const [networkStatus] = useState(navigator.onLine);
   const classes = useStyles();
   const userRegister = useSelector((state) => state.userRegister);
   const { user, loading, error } = userRegister;
