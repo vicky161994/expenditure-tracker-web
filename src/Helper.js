@@ -12,10 +12,6 @@ function Helper() {
     if (task.api === "userRegister") {
       dispatch(register(task.data.name, task.data.password, task.data.number));
     }
-    PendingTask = PendingTask.filter((data) => {
-      return data.api !== "userRegister";
-    });
-    localStorage.setItem("pendingTask", JSON.stringify(PendingTask));
   }
   return <div></div>;
 }

@@ -42,8 +42,9 @@ export const register = (fullName, password, email) => async (dispatch) => {
       type: USER_REGISTER_SUCCESS,
       payload: data,
     });
+    await udpateLocalStroage();
   } catch (error) {
-    console.log(error);
+    console.log(error.response);
     dispatch({
       type: USER_REGISTER_FAIL,
       error: error.response.data.message,
@@ -418,4 +419,14 @@ export const loginWithGoogle = (tokenId) => async (dispatch) => {
   } catch (error) {
     dispatch({ type: USER_LOGIN_FAIL, payload: error.response.data.message });
   }
+};
+
+const udpateLocalStroage = () => {
+  let PendingTask = localStorage.getItem("pendingTask")
+    ? JSON.parse(localStorage.getItem("pendingTask"))
+    : [];
+  PendingTask = PendingTask.filter((data) => {
+    return data.api !== "userRegister";
+  });
+  localStorage.setItem("pendingTask", JSON.stringify(PendingTask));
 };
