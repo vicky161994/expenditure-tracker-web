@@ -18,6 +18,9 @@ import {
   EDIT_ADDRESS_FAIL,
   EDIT_ADDRESS_REQUEST,
   EDIT_ADDRESS_SUCCESS,
+  GET_USER_LIST_FAIL,
+  GET_USER_LIST_REQUEST,
+  GET_USER_LIST_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -111,6 +114,19 @@ export const changeProfileReducer = (state = {}, action) => {
     case CHANGE_PROFILE_REQUEST:
       return { loading: true };
     case CHANGE_PROFILE_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const getUserListReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_USER_LIST_REQUEST:
+      return { loading: true };
+    case GET_USER_LIST_SUCCESS:
+      return { loading: false, userList: action.payload };
+    case GET_USER_LIST_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;

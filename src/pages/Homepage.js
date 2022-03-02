@@ -2,20 +2,24 @@ import React, { useEffect, useState } from "react";
 import { Container, Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { productlist } from "../actions/productActions";
-import Product from "../components/Product";
 import Pagination from "react-responsive-pagination";
 import { Button, TextField, Typography } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
+import AddIcon from "@material-ui/icons/Add";
 import RotateLeftIcon from "@material-ui/icons/RotateLeft";
+import Group from "../components/Group";
+import AddGroup from "../components/dialogs/AddGroup";
 
 function Homepage(props) {
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
   const [filterKeyword, setFilterKeyword] = useState("");
+  const [openDialog, setOpenDialog] = useState(false);
   const productList = useSelector((state) => state.productList);
   const { loading, products, error } = productList;
   const userLogin = useSelector((state) => state.userLogin);
   const { user } = userLogin;
+  console.log(user);
   useEffect(() => {
     dispatch(productlist(page, filterKeyword));
   }, [dispatch, filterKeyword, page]);
@@ -35,15 +39,31 @@ function Homepage(props) {
     dispatch(productlist(page, ""));
   };
 
+  const openModalforNewAddress = async (e) => {
+    setOpenDialog(true);
+  };
+  const CloseModalforNewAddress = async (e) => {
+    setOpenDialog(false);
+  };
+
   return (
     <Container>
+      {openDialog && <AddGroup dialogClose={CloseModalforNewAddress} />}
+      <Button
+        variant="contained"
+        color="primary"
+        style={{ position: "fixed", bottom: 120, right: 10 }}
+        onClick={openModalforNewAddress}
+      >
+        <AddIcon />
+      </Button>
       <Row>
         <Col lg={12} md={12} sm={12} xs={12}>
           <center>
             <TextField
               className="homepage-filter search-filter-box"
               id="outlined-required"
-              label="Search Product..."
+              label="Search Group..."
               variant="outlined"
               style={{ marginTop: "15px", width: "60%" }}
               value={filterKeyword}
@@ -78,7 +98,7 @@ function Homepage(props) {
           Loading ...
         </div>
       ) : error ? (
-        <div>some error here</div>
+        <div>Some error occured, Please try again!</div>
       ) : (
         <Row>
           {products.data.length === 0 && (
@@ -89,16 +109,12 @@ function Homepage(props) {
               style={{ textAlign: "center" }}
               className="mt-2"
             >
-              Product not found!
+              Group not found!
             </Typography>
           )}
-          {products.data.map((product, index) => {
-            return (
-              <Col lg={4} md={4} sm={12} xs={12} key={product._id}>
-                <Product product={product} index={index} user={user} />
-              </Col>
-            );
-          })}
+          <div className="mt-4">
+            <Group products={products} page={page} />
+          </div>
         </Row>
       )}
       <Row>
@@ -107,7 +123,9 @@ function Homepage(props) {
             <Pagination
               current={page}
               total={
-                products && products.totalProduct ? products.totalProduct : 0
+                products && products.totalGroups
+                  ? Math.ceil(products.totalGroups / 10)
+                  : 0
               }
               onPageChange={paginateData}
             />

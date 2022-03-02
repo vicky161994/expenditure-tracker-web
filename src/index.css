@@ -28,8 +28,13 @@ p {
 a {
   text-decoration: none !important;
 }
+.color-black {
+  color: #212529;
+}
+.pagination
 li {
   list-style: none;
+  background-color: #212529;
 }
 .row {
   margin: 0px !important;
@@ -52,6 +57,11 @@ li {
 }
 .pagination {
   margin: 10px 0px;
+}
+.pagination a{
+  color: rgba(255, 255, 255, 0.55) !important;
+  background-color: #212529 !important;
+  border-color: #212529 !important;
 }
 @keyframes myfirst {
   0% {
@@ -83,6 +93,10 @@ input[type="radio"] {
   border: 0px;
   width: 3%;
   height: 2em;
+}
+
+.cursor-pointer{
+  cursor: pointer;
 }
 
 /* COMMON END */

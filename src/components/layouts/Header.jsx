@@ -4,12 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { logout } from "../../actions/userActions";
+import { useHistory } from "react-router-dom";
 
 function Header() {
+  let history = useHistory();
   const userLogin = useSelector((state) => state.userLogin);
   const { user } = userLogin;
   const dispatch = useDispatch();
   const handleLogoutAction = () => {
+    history.push('/')
     dispatch(logout());
   };
 
@@ -25,7 +28,7 @@ function Header() {
               className="d-inline-block align-top"
               alt="Expenditure tracker logo"
             />{" "}
-            Expenditure Tracker
+            <span>Expenditure Tracker</span>
           </Navbar.Brand>
         </LinkContainer>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -34,7 +37,7 @@ function Header() {
           className="justify-content-end"
         >
           <Nav className="mr-auto">
-          {user && user.token && (
+          {/* {user && user.token && (
               <LinkContainer to="group">
                 <Nav.Link>
                   Group
@@ -47,7 +50,7 @@ function Header() {
                   Item
                 </Nav.Link>
               </LinkContainer>
-            )}
+            )} */}
             {user && user.token && (
               <Nav.Link onClick={handleLogoutAction}>
                 Logout

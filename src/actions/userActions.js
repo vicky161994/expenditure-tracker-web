@@ -25,8 +25,13 @@ import {
   CHANGE_PROFILE_REQUEST,
   CHANGE_PROFILE_SUCCESS,
   CHANGE_PROFILE_FAIL,
+  GET_USER_LIST_REQUEST,
+  GET_USER_LIST_SUCCESS,
+  GET_USER_LIST_FAIL,
 } from "../constants/userConstants";
 var api_ur = "https://expenditure-tracker-api.herokuapp.com/api/";
+api_ur = "http://localhost:6002/api/";
+
 export const register = (fullName, password, email) => async (dispatch) => {
   dispatch({
     type: USER_REGISTER_REQUEST,
@@ -429,4 +434,35 @@ const udpateLocalStroage = () => {
     return data.api !== "userRegister";
   });
   localStorage.setItem("pendingTask", JSON.stringify(PendingTask));
+};
+
+export const getUserList = (groupId) => async (dispatch, getState) => {
+  dispatch({
+    type: GET_USER_LIST_REQUEST,
+    payload: [],
+  });
+  try {
+    const {
+      userLogin: { user },
+    } = getState();
+    const { data } = await Axios.get(
+      `${api_ur}v1/users/get-user-list?groupId=${groupId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
+    dispatch({
+      type: GET_USER_LIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    console.log(error.response);
+    dispatch({
+      type: GET_USER_LIST_FAIL,
+      error: error.response.data.message,
+      payload: { message: error.response.data.message, status: error.status },
+    });
+  }
 };
