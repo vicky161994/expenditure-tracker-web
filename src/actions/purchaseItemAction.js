@@ -14,7 +14,7 @@ import {
   UPDATE_PURCHASE_ITEM_REQUEST,
 } from "../constants/purchaseItemConstant";
 var api_ur = "https://expenditure-tracker-api.herokuapp.com/api/";
-api_ur = "http://localhost:6002/api/";
+// api_ur = "http://localhost:6002/api/";
 
 export const getPurchaseItemList =
   (groupId, page, filterData) => async (dispatch, getState) => {

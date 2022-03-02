@@ -13,7 +13,7 @@ import {
   UPDATE_ITEM_LIST_REQUEST,
 } from "../constants/itemListConstant";
 var api_ur = "https://expenditure-tracker-api.herokuapp.com/api/";
-api_ur = "http://localhost:6002/api/";
+// api_ur = "http://localhost:6002/api/";
 
 export const getItemList = (groupId) => async (dispatch, getState) => {
   dispatch({

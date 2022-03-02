@@ -30,7 +30,7 @@ import {
   GET_USER_LIST_FAIL,
 } from "../constants/userConstants";
 var api_ur = "https://expenditure-tracker-api.herokuapp.com/api/";
-api_ur = "http://localhost:6002/api/";
+// api_ur = "http://localhost:6002/api/";
 
 export const register = (fullName, password, email) => async (dispatch) => {
   dispatch({
