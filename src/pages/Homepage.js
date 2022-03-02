@@ -101,6 +101,9 @@ function Homepage(props) {
         <div>Some error occured, Please try again!</div>
       ) : (
         <Row>
+          <div className="mt-4">
+            <Group products={products} page={page} />
+          </div>
           {products.data.length === 0 && (
             <Typography
               variant="body2"
@@ -112,9 +115,6 @@ function Homepage(props) {
               Group not found!
             </Typography>
           )}
-          <div className="mt-4">
-            <Group products={products} page={page} />
-          </div>
         </Row>
       )}
       <Row>
