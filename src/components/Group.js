@@ -46,15 +46,7 @@ function Group(props) {
             return (
               <tr key={index}>
                 <th scope="row">{index + 1}</th>
-                <td className="cursor-pointer">
-                  <Link
-                    to={`${"purchase-items/"}${product._id}`}
-                    target={"_blank"}
-                    className="color-black"
-                  >
-                    {product.name}
-                  </Link>
-                </td>
+                <td className="cursor-pointer">{product.name}</td>
                 <td>{product.createdBy.fullName}</td>
                 <td>{`${
                   date.getDate() <= 9
@@ -66,17 +58,12 @@ function Group(props) {
                     : date.getMonth() + 1
                 } - ${date.getFullYear()}`}</td>
                 <td className="cursor-pointer">
-                  <Link
-                    to={`item-list/${product._id}`}
-                    target={"_blank"}
-                    className="color-black"
-                  >
+                  <Link to={`item-list/${product._id}`} className="color-black">
                     Click here for item list
                   </Link>
                   <br />
                   <Link
                     to={`purchase-item/${product._id}/true`}
-                    target={"_blank"}
                     className="color-black"
                   >
                     Click here for purchase Item{" "}

@@ -4,16 +4,11 @@ import {
   productDetailReducer,
   productListReducer,
 } from "./reducers/productReducers";
-import { cartListReducer } from "./reducers/cartReducers";
 import {
   getUserListReducer,
   userLoginReducer,
   userRegisterReducer,
 } from "./reducers/userReducers";
-import {
-  addOrderItemReducer,
-  getOrderListReducer,
-} from "./reducers/orderReducers";
 import {
   getItemDetailsByIdReducer,
   getItemListReducer,
@@ -34,9 +29,6 @@ const reducer = combineReducers({
   productDetail: productDetailReducer,
   userRegister: userRegisterReducer,
   userLogin: userLoginReducer,
-  cartList: cartListReducer,
-  orderDetails: addOrderItemReducer,
-  orderList: getOrderListReducer,
   itemList: getItemListReducer,
   itemDetail: getItemDetailsByIdReducer,
   purchaseItemList: getPurchaseItemListReducer,
