@@ -12,7 +12,7 @@ import {
   DELETE_ADDRESS_REQUEST,
 } from "../constants/userConstants";
 var api_ur = "https://expenditure-tracker-api.herokuapp.com/api/";
-api_ur = "http://localhost:6002/api/";
+// api_ur = "http://localhost:6002/api/";
 export const productlist =
   (page, filterKeyword) => async (dispatch, getState) => {
     dispatch({
